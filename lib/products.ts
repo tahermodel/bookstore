@@ -3,14 +3,23 @@ export interface Product {
     slug: string;
     title: string;
     subtitle: string;
-    price: number; // in cents
+    price: number;
     description: string;
-    image: string; // Path to image in /public
+    image: string;
 }
 
 export const products: Product[] = [
     {
         id: "prod_01",
+        slug: "Before the Coffee Gets Cold",
+        title: "Before the Coffee Gets Cold",
+        subtitle: "Charming yet melancholic nove.",
+        price: 3500,
+        description: "Before the Coffee Gets Cold is a work of contemporary Japanese fiction that blends elements of magical realism with a poignant, character-driven 'slice of life' narrative.",
+        image: "/images/BeforetheCoffeeGetsCold.jpg",
+    },
+    {
+        id: "prod_02",
         slug: "monograph-vol-1",
         title: "Monograph Vol. 1",
         subtitle: "A study in brutalist typography.",
@@ -19,7 +28,7 @@ export const products: Product[] = [
         image: "/images/book-1.jpg",
     },
     {
-        id: "prod_02",
+        id: "prod_03",
         slug: "analog-bundle",
         title: "The Analog Bundle",
         subtitle: "Physical tools for digital detox.",

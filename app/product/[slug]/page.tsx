@@ -38,7 +38,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
             {/* Details Column - Sticky on Desktop */}
             <div className="md:sticky md:top-32 flex flex-col gap-8">
                 <Link href="/" className="text-xs text-stone-400 hover:text-stone-900 transition-colors uppercase tracking-widest mb-4 block">
-                    ← Index
+                    ← Back
                 </Link>
 
                 <div>
