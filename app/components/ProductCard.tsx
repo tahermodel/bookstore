@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Product } from "@/lib/products";
 
 interface ProductCardProps {
@@ -21,12 +22,13 @@ export function ProductCard({ product, index }: ProductCardProps) {
             <div className="aspect-[3/4] relative w-full max-w-[80%] mx-auto my-12 bg-stone-100 grayscale group-hover:grayscale-0 transition-all duration-700 ease-out shadow-sm group-hover:shadow-xl group-hover:-translate-y-2">
                 {/* Placeholder for product image - ideally use Next.js Image component here */}
                 {product.image ? (
-                    <div className="absolute inset-0 flex items-center justify-center overflow-hidden">
-                        {/* Simulate image with background if no real image component yet, or keep placeholder text */}
-                        <div className="text-stone-300 font-serif italic text-2xl px-4 text-center">
-                            {product.title}
-                        </div>
-                    </div>
+                    <Image
+                        src={product.image}
+                        alt={product.title}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                    />
                 ) : (
                     <div className="absolute inset-0 flex items-center justify-center text-stone-300 font-serif italic text-2xl">
                         Figure {index + 1}

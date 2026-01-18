@@ -3,6 +3,8 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import { ArrowRight } from "lucide-react";
 
+import Image from "next/image";
+
 // Generate static params for all products at build time
 export async function generateStaticParams() {
     return products.map((product) => ({
@@ -23,11 +25,13 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
             {/* Image Column */}
             <div className="aspect-[3/4] bg-stone-100 relative overflow-hidden">
                 {product.image ? (
-                    <div className="absolute inset-0 flex items-center justify-center overflow-hidden">
-                        <div className="text-stone-300 font-serif italic text-2xl px-4 text-center">
-                            {product.title}
-                        </div>
-                    </div>
+                    <Image
+                        src={product.image}
+                        alt={product.title}
+                        fill
+                        className="object-cover"
+                        priority
+                    />
                 ) : (
                     <div className="absolute inset-0 bg-stone-200 flex items-center justify-center text-stone-400">
                         [Image: {product.title}]

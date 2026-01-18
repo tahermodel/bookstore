@@ -11,7 +11,7 @@ export interface Product {
 export const products: Product[] = [
     {
         id: "prod_01",
-        slug: "Before the Coffee Gets Cold",
+        slug: "before-the-coffee-gets-cold",
         title: "Before the Coffee Gets Cold",
         subtitle: "Charming yet melancholic nove.",
         price: 3500,
