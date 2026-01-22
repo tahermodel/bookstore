@@ -6,8 +6,12 @@ import { getProduct } from "@/lib/products";
 
 export function OrderSaver({ sessionId, productId }: { sessionId: string; productId: string }) {
     useEffect(() => {
+        console.log("OrderSaver mounted", { sessionId, productId });
         if (sessionId && productId) {
+            console.log("Saving order...");
             saveOrder(sessionId, productId);
+        } else {
+            console.error("Missing session or product ID");
         }
     }, [sessionId, productId]);
 

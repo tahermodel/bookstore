@@ -11,7 +11,9 @@ export function OrderList() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        setOrders(getOrders());
+        const stored = getOrders();
+        console.log("OrderList: Retrieved orders", stored);
+        setOrders(stored);
         setLoading(false);
     }, []);
 
@@ -23,11 +25,8 @@ export function OrderList() {
         return (
             <div className="bg-stone-50 p-12 text-center border border-stone-100">
                 <p className="text-stone-500 mb-6 font-serif italic">
-                    No records found in this browser.
+                    No records found.
                 </p>
-                <Link href="/" className="text-xs font-bold tracking-widest uppercase border-b border-black pb-1 hover:opacity-50 transition-opacity">
-                    Browse Archive
-                </Link>
             </div>
         );
     }

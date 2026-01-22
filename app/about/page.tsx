@@ -19,7 +19,7 @@ export default function AboutPage() {
                     <p>
                         <strong>Shipping:</strong> Worldwide via tracked courier.<br />
                         <strong>Returns:</strong> All sales are final unless damaged in transit.<br />
-                        <strong>Contact:</strong> studio@example.com
+                        <strong>Contact:</strong> editorial@example.com
                     </p>
                 </div>
             </div>

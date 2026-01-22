@@ -13,7 +13,7 @@ export const products: Product[] = [
         id: "prod_01",
         slug: "before-the-coffee-gets-cold",
         title: "Before the Coffee Gets Cold",
-        subtitle: "Charming yet melancholic nove.",
+        subtitle: "Charming yet melancholic novel.",
         price: 3500,
         description: "Before the Coffee Gets Cold is a work of contemporary Japanese fiction that blends elements of magical realism with a poignant, character-driven 'slice of life' narrative.",
         image: "/images/BeforetheCoffeeGetsCold.jpg",

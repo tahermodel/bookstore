@@ -25,7 +25,7 @@ export default async function SuccessPage({
             <OrderSaver sessionId={session_id} productId={product_id} />
 
             <Link href="/" className="border-b border-black pb-1 hover:opacity-50 transition-opacity text-sm">
-                Return to Studio
+                Return to Editorial
             </Link>
         </section>
     );
