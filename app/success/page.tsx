@@ -1,11 +1,12 @@
 import Link from "next/link";
+import { OrderSaver } from "./OrderSaver";
 
 export default async function SuccessPage({
     searchParams,
 }: {
-    searchParams: Promise<{ session_id: string }>;
+    searchParams: Promise<{ session_id: string; product_id: string }>;
 }) {
-    const { session_id } = await searchParams;
+    const { session_id, product_id } = await searchParams;
     return (
         <section className="min-h-[60vh] flex flex-col justify-center items-center text-center gap-8">
             <div className="space-y-4">
@@ -20,6 +21,8 @@ export default async function SuccessPage({
             <div className="text-xs font-mono text-gray-400">
                 REF: {session_id?.slice(-8) || "PENDING"}
             </div>
+
+            <OrderSaver sessionId={session_id} productId={product_id} />
 
             <Link href="/" className="border-b border-black pb-1 hover:opacity-50 transition-opacity text-sm">
                 Return to Studio

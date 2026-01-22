@@ -46,7 +46,7 @@ export async function POST(request: Request) {
                 },
             ],
             mode: 'payment',
-            success_url: `${origin}/success?session_id={CHECKOUT_SESSION_ID}`,
+            success_url: `${origin}/success?session_id={CHECKOUT_SESSION_ID}&product_id=${product.id}`,
             cancel_url: `${origin}/product/${product.slug}`,
         });
 

@@ -6,9 +6,9 @@ export function Header() {
             <Link href="/" className="text-xs font-bold tracking-[0.2em] uppercase">
                 Editorial
             </Link>
-            <button className="text-xs font-medium uppercase tracking-widest hover:text-stone-500 transition-colors">
-                Cart (0)
-            </button>
+            <Link href="/orders" className="text-xs font-medium uppercase tracking-widest hover:text-stone-500 transition-colors">
+                Orders
+            </Link>
         </nav>
     );
 }
