@@ -23,7 +23,12 @@ export async function POST(request: Request) {
         return NextResponse.json({ error: "Invalid Product" }, { status: 400 });
     }
 
-    const origin = request.headers.get('origin') || 'http://localhost:3000';
+    const origin = process.env.NEXT_PUBLIC_URL;
+
+    if (!origin) {
+        console.error("NEXT_PUBLIC_URL is missing");
+        return NextResponse.json({ error: "Configuration Error" }, { status: 500 });
+    }
 
     try {
         const session = await stripe.checkout.sessions.create({

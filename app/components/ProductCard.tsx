@@ -19,7 +19,7 @@ export function ProductCard({ product, index }: ProductCardProps) {
                 </span>
             </div>
 
-            <div className="aspect-[3/4] relative w-full max-w-[80%] mx-auto my-12 bg-stone-100 grayscale group-hover:grayscale-0 transition-all duration-700 ease-out shadow-sm group-hover:shadow-xl group-hover:-translate-y-2">
+            <div className="aspect-[3/4] relative w-full max-w-[80%] mx-auto my-12 bg-stone-100 transition-all duration-700 ease-out shadow-sm group-hover:shadow-xl group-hover:-translate-y-2">
                 {/* Placeholder for product image - ideally use Next.js Image component here */}
                 {product.image ? (
                     <Image

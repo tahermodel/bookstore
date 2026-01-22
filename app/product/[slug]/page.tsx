@@ -5,7 +5,7 @@ import { ArrowRight } from "lucide-react";
 
 import Image from "next/image";
 
-// Generate static params for all products at build time
+
 export async function generateStaticParams() {
     return products.map((product) => ({
         slug: product.slug,
@@ -22,7 +22,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
 
     return (
         <article className="grid grid-cols-1 md:grid-cols-2 gap-12 md:gap-24 min-h-[80vh] items-start px-6 md:px-12 pt-12 pb-24">
-            {/* Image Column */}
+            { }
             <div className="aspect-[3/4] bg-stone-100 relative overflow-hidden">
                 {product.image ? (
                     <Image
@@ -39,7 +39,7 @@ export default async function ProductPage({ params }: { params: Promise<{ slug: 
                 )}
             </div>
 
-            {/* Details Column - Sticky on Desktop */}
+            { }
             <div className="md:sticky md:top-32 flex flex-col gap-8">
                 <Link href="/" className="text-xs text-stone-400 hover:text-stone-900 transition-colors uppercase tracking-widest mb-4 block">
                     ← Back
