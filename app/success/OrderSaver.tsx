@@ -2,20 +2,16 @@
 
 import { useEffect } from "react";
 import { saveOrder } from "@/lib/orders";
-import { getProduct } from "@/lib/products";
+import { getProductById } from "@/lib/products";
 
 export function OrderSaver({ sessionId, productId }: { sessionId: string; productId: string }) {
     useEffect(() => {
-        console.log("OrderSaver mounted", { sessionId, productId });
         if (sessionId && productId) {
-            console.log("Saving order...");
             saveOrder(sessionId, productId);
-        } else {
-            console.error("Missing session or product ID");
         }
     }, [sessionId, productId]);
 
-    const product = getProduct(productId);
+    const product = getProductById(productId);
 
     if (!product) return null;
 

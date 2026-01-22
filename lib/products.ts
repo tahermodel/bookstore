@@ -41,3 +41,7 @@ export const products: Product[] = [
 export function getProduct(slug: string) {
     return products.find((p) => p.slug === slug);
 }
+
+export function getProductById(id: string) {
+    return products.find((p) => p.id === id);
+}

@@ -2,7 +2,7 @@
 
 import { useEffect, useState } from "react";
 import { getOrders, Order } from "@/lib/orders";
-import { getProduct, Product } from "@/lib/products";
+import { getProductById, Product } from "@/lib/products";
 import Image from "next/image";
 import Link from "next/link";
 
@@ -11,9 +11,7 @@ export function OrderList() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const stored = getOrders();
-        console.log("OrderList: Retrieved orders", stored);
-        setOrders(stored);
+        setOrders(getOrders());
         setLoading(false);
     }, []);
 
@@ -25,8 +23,11 @@ export function OrderList() {
         return (
             <div className="bg-stone-50 p-12 text-center border border-stone-100">
                 <p className="text-stone-500 mb-6 font-serif italic">
-                    No records found.
+                    No records found in this browser.
                 </p>
+                <Link href="/" className="text-xs font-bold tracking-widest uppercase border-b border-black pb-1 hover:opacity-50 transition-opacity">
+                    Browse Archive
+                </Link>
             </div>
         );
     }
@@ -34,7 +35,7 @@ export function OrderList() {
     return (
         <div className="flex flex-col gap-8">
             {orders.map((order, index) => {
-                const product = getProduct(order.productId);
+                const product = getProductById(order.productId);
                 if (!product) return null;
 
                 return (
