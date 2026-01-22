@@ -11,7 +11,7 @@ export default function AboutPage() {
                     we curate artifacts that demand presence.
                 </p>
                 <p>
-                    Studio is not a store. It is an archive of deliberate design,
+                    Editorial is not a store. It is an archive of deliberate design,
                     brutalist typography, and analog permanence.
                 </p>
                 <hr className="border-gray-200 my-12 w-12" />
