@@ -1,5 +1,6 @@
 import Link from "next/link";
 import { OrderSaver } from "./OrderSaver";
+import { CheckCircle, ArrowRight, Package } from "lucide-react";
 
 export default async function SuccessPage({
     searchParams,
@@ -7,26 +8,62 @@ export default async function SuccessPage({
     searchParams: Promise<{ session_id: string; product_id: string }>;
 }) {
     const { session_id, product_id } = await searchParams;
+
     return (
-        <section className="min-h-[60vh] flex flex-col justify-center items-center text-center gap-8">
-            <div className="space-y-4">
-                <h1 className="text-4xl md:text-6xl font-light tracking-tight">
-                    Order Confirmed.
+        <section className="min-h-[80vh] flex flex-col justify-center items-center text-center px-6 py-24 animate-fade-in">
+            { }
+            <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center mb-8 animate-scale-in">
+                <CheckCircle className="text-green-600" size={40} />
+            </div>
+
+            <div className="space-y-4 max-w-md">
+                <h1 className="text-4xl md:text-5xl font-serif text-stone-900">
+                    Order Confirmed
                 </h1>
-                <p className="text-gray-500 font-serif italic text-xl">
-                    Your artifact is being prepared.
+                <p className="text-stone-500 font-light text-lg">
+                    Thank you for your purchase. Your artifact is being prepared for shipment.
                 </p>
             </div>
 
-            <div className="text-xs font-mono text-gray-400">
-                REF: {session_id?.slice(-8) || "PENDING"}
+            { }
+            <div className="mt-8 px-6 py-3 bg-stone-100 rounded-full">
+                <span className="text-xs font-mono text-stone-500 uppercase tracking-wider">
+                    Reference: {session_id?.slice(-12) || "PENDING"}
+                </span>
             </div>
 
+            { }
             <OrderSaver sessionId={session_id} productId={product_id} />
 
-            <Link href="/" className="border-b border-black pb-1 hover:opacity-50 transition-opacity text-sm">
-                Return to Editorial
-            </Link>
+            { }
+            <div className="mt-12 p-6 bg-stone-50 rounded-lg border border-stone-100 max-w-md w-full">
+                <div className="flex items-start gap-4 text-left">
+                    <Package className="text-stone-400 shrink-0 mt-1" size={20} />
+                    <div>
+                        <h3 className="font-medium text-stone-900 mb-1">What's next?</h3>
+                        <p className="text-sm text-stone-500">
+                            You'll receive a confirmation email with tracking information once your order ships.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            { }
+            <div className="mt-10 flex flex-wrap gap-4 justify-center">
+                <Link
+                    href="/orders"
+                    className="btn-primary inline-flex items-center gap-3 group"
+                >
+                    <span>View Orders</span>
+                    <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />
+                </Link>
+                <Link
+                    href="/"
+                    className="btn-secondary"
+                >
+                    Continue Browsing
+                </Link>
+            </div>
         </section>
     );
 }
