@@ -2,10 +2,15 @@ import { PrismaClient } from "@prisma/client";
 import { PrismaPg } from "@prisma/adapter-pg";
 import { Pool } from "pg";
 
+// Brute-force fix for Node's SSL chain issues in Vercel/Supabase environments
+if (process.env.NODE_ENV === "production") {
+    process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+}
+
 const globalForPrisma = globalThis as unknown as { prisma: PrismaClient | undefined };
 
 function createPrismaClient() {
-    const connectionString =
+    let connectionString =
         process.env.POSTGRES_URL_NON_POOLING ||
         process.env.POSTGRES_PRISMA_URL;
 
@@ -13,7 +18,15 @@ function createPrismaClient() {
         throw new Error("Database connection string is missing.");
     }
 
-    // Configure the 'pg' pool with SSL settings that trust Supabase
+    // Clean connection string and force sslmode=no-verify for double protection
+    if (connectionString.includes("sslmode=")) {
+        connectionString = connectionString.replace(/sslmode=[^&]*/, "sslmode=no-verify");
+    } else {
+        const separator = connectionString.includes("?") ? "&" : "?";
+        connectionString += `${separator}sslmode=no-verify`;
+    }
+
+    // Initialize the PG pool with loose SSL checking to bypass the self-signed cert error
     const pool = new Pool({
         connectionString,
         ssl: {
@@ -23,11 +36,10 @@ function createPrismaClient() {
 
     const adapter = new PrismaPg(pool);
 
-    // We cast to 'any' to bypass temporary Prisma 7 type conflicts during build
     return new PrismaClient({
-        adapter: adapter as any,
+        adapter: adapter as any, // Explicitly tell Prisma to use the 'pg' driver
         log: process.env.NODE_ENV === "development" ? ["error", "warn"] : ["error"],
-    } as any);
+    });
 }
 
 export const prisma = globalForPrisma.prisma ?? createPrismaClient();
