@@ -1,11 +1,11 @@
 'use client';
 
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, Suspense } from 'react';
 import { useRouter, useSearchParams } from 'next/navigation';
 import { Mail, ArrowRight, Loader2, RefreshCw } from "lucide-react";
 import Link from 'next/link';
 
-export default function VerifyPage() {
+function VerifyForm() {
     const router = useRouter();
     const searchParams = useSearchParams();
     const email = searchParams.get('email') || "";
@@ -185,5 +185,17 @@ export default function VerifyPage() {
                 </Link>
             </div>
         </section>
+    );
+}
+
+export default function VerifyPage() {
+    return (
+        <Suspense fallback={
+            <section className="min-h-screen flex items-center justify-center bg-stone-50">
+                <Loader2 className="animate-spin text-stone-400" size={32} />
+            </section>
+        }>
+            <VerifyForm />
+        </Suspense>
     );
 }
