@@ -1,18 +1,33 @@
 require('dotenv').config();
-const { Resend } = require('resend');
-
-const resend = new Resend(process.env.RESEND_API_KEY);
+const nodemailer = require('nodemailer');
 
 async function test() {
-    console.log('Testing Resend with key:', process.env.RESEND_API_KEY ? 'Present' : 'Missing');
+    const user = process.env.GMAIL_USER;
+    const pass = process.env.GMAIL_APP_PASSWORD;
+
+    console.log('Testing Gmail with:', { user, pass: pass ? 'Present' : 'Missing' });
+
+    if (!user || !pass) {
+        console.error('Missing credentials');
+        return;
+    }
+
+    const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user,
+            pass,
+        },
+    });
+
     try {
-        const result = await resend.emails.send({
-            from: 'onboarding@resend.dev',
-            to: 'delivered@resend.dev', // Resend's test address
-            subject: 'Test email',
-            html: '<p>Test</p>',
+        const result = await transporter.sendMail({
+            from: `"Test" <${user}>`,
+            to: user, // Send to yourself
+            subject: 'Test email from NextJS Bookstore',
+            html: '<p>Test successful!</p>',
         });
-        console.log('Result:', JSON.stringify(result, null, 2));
+        console.log('Result:', result.messageId);
     } catch (e) {
         console.error('Error:', e);
     }

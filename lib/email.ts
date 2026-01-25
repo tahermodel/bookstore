@@ -1,20 +1,27 @@
-import { Resend } from 'resend';
+import nodemailer from 'nodemailer';
 
 export async function sendVerificationEmail(email: string, code: string) {
-    const apiKey = process.env.RESEND_API_KEY;
+    const user = process.env.GMAIL_USER;
+    const pass = process.env.GMAIL_APP_PASSWORD;
 
-    if (!apiKey) {
-        console.error('CRITICAL: RESEND_API_KEY is missing from environment variables.');
+    if (!user || !pass) {
+        console.error('CRITICAL: GMAIL_USER or GMAIL_APP_PASSWORD is missing from environment variables.');
         return { success: false, error: 'Internal configuration error' };
     }
 
-    const resend = new Resend(apiKey);
+    const transporter = nodemailer.createTransport({
+        service: 'gmail',
+        auth: {
+            user,
+            pass,
+        },
+    });
 
     try {
-        console.log(`[Email] Attempting to send code to: ${email}`);
+        console.log(`[Email] Attempting to send code to: ${email} via Gmail SMTP`);
 
-        const result = await resend.emails.send({
-            from: 'Editorial <onboarding@resend.dev>',
+        const mailOptions = {
+            from: `"Editorial" <${user}>`,
             to: email,
             subject: 'Verify your email | Editorial',
             html: `
@@ -28,18 +35,14 @@ export async function sendVerificationEmail(email: string, code: string) {
                     <p style="font-size: 12px; color: #78716c;">This code will expire in 10 minutes. If you did not request this, please ignore this email.</p>
                 </div>
             `,
-        });
+        };
 
-        if (result.error) {
-            console.error('Resend API Error:', JSON.stringify(result.error, null, 2));
-            return { success: false, error: result.error };
-        }
+        const result = await transporter.sendMail(mailOptions);
 
-        console.log('Resend API Success. Email ID:', result.data?.id);
-        return { success: true, data: result.data };
+        console.log('Gmail SMTP Success. Message ID:', result.messageId);
+        return { success: true, data: result };
     } catch (error) {
         console.error('Failed to send verification email (Caught Exception):', error);
         return { success: false, error };
     }
 }
-
