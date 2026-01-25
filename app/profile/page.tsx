@@ -12,6 +12,18 @@ export default function ProfilePage() {
     const [message, setMessage] = useState("");
     const [error, setError] = useState("");
 
+    // Local state for name and email to ensure UI freshness
+    const [userName, setUserName] = useState("");
+    const [userEmail, setUserEmail] = useState("");
+
+    // Sync local state when session loads or updates
+    useEffect(() => {
+        if (session?.user) {
+            setUserName(session.user.name || "");
+            setUserEmail(session.user.email || "");
+        }
+    }, [session]);
+
     // Verification related state
     const [showVerify, setShowVerify] = useState(false);
     const [tempEmail, setTempEmail] = useState("");
@@ -47,17 +59,13 @@ export default function ProfilePage() {
                 setShowVerify(true);
                 setIsEditing(false);
             } else {
+                // If only name was changed
+                await update({
+                    name: updatedUser.name
+                });
                 setMessage("Profile updated successfully.");
                 setIsEditing(false);
             }
-
-            await update({
-                ...session,
-                user: {
-                    ...session?.user,
-                    name: updatedUser.name,
-                }
-            });
 
         } catch (err: any) {
             setError(err.message || "Update failed. Please try again.");
@@ -83,21 +91,15 @@ export default function ProfilePage() {
             const result = await res.json();
             if (!res.ok) throw new Error(result.error || "Verification failed");
 
-            // Explicitly update session with new email
+            // CRITICAL: Force a full session update with the new email
             await update({
-                ...session,
-                user: {
-                    ...session?.user,
-                    email: tempEmail
-                }
+                email: tempEmail
             });
 
-            // Force a slight delay to ensure session propagates
-            setTimeout(() => {
-                setMessage("Email updated and verified successfully.");
-                setShowVerify(false);
-                setVerifyCode(['', '', '', '', '', '']);
-            }, 100);
+            setMessage("Email updated and verified successfully.");
+            setShowVerify(false);
+            setVerifyCode(['', '', '', '', '', '']);
+
         } catch (err: any) {
             setError(err.message || "Incorrect verification code.");
         } finally {
@@ -145,7 +147,7 @@ export default function ProfilePage() {
     }
 
     if (!session) return (
-        <div className="min-h-screen flex items-center justify-center p-6 text-stone-500 font-serif italic">
+        <div className="min-h-screen flex items-center justify-center p-6 text-stone-500 font-serif italic bg-stone-50">
             Authenticating...
         </div>
     );
@@ -153,8 +155,8 @@ export default function ProfilePage() {
     return (
         <section className="min-h-screen px-6 py-24 max-w-xl mx-auto">
             {!showVerify ? (
-                <>
-                    <div className="flex justify-between items-end mb-12 animate-fade-in">
+                <div className="glass-premium p-8 md:p-12 rounded-3xl animate-fade-in shadow-xl">
+                    <div className="flex justify-between items-end mb-12">
                         <div>
                             <h1 className="text-3xl font-serif text-stone-900 mb-2">Account Details</h1>
                             <p className="text-stone-500 font-serif italic text-sm">Review or modify your records.</p>
@@ -179,19 +181,15 @@ export default function ProfilePage() {
                         )}
                     </div>
 
-                    <div className="space-y-12 animate-fade-in-up">
-                        <form
-                            key={session.user?.email || 'form'}
-                            onSubmit={handleUpdate}
-                            className="flex flex-col gap-8"
-                        >
+                    <div className="space-y-12">
+                        <form onSubmit={handleUpdate} className="flex flex-col gap-8">
                             {message && (
-                                <div className="p-4 glass shadow-sm text-stone-900 text-xs uppercase tracking-widest flex items-center gap-3 animate-slide-up">
+                                <div className="p-4 glass text-stone-900 text-xs uppercase tracking-widest flex items-center gap-3 animate-slide-up border-green-100">
                                     <Check size={14} className="text-green-600" /> {message}
                                 </div>
                             )}
                             {error && (
-                                <div className="p-4 bg-red-50 text-red-800 text-xs uppercase tracking-widest border border-red-100 flex items-center gap-3">
+                                <div className="p-4 bg-red-50/50 backdrop-blur-sm text-red-800 text-xs uppercase tracking-widest border border-red-100 flex items-center gap-3">
                                     <ShieldAlert size={14} /> {error}
                                 </div>
                             )}
@@ -202,9 +200,10 @@ export default function ProfilePage() {
                                     <input
                                         name="name"
                                         type="text"
-                                        defaultValue={session.user?.name || ""}
+                                        key={`name-${userName}`}
+                                        defaultValue={userName}
                                         readOnly={!isEditing}
-                                        className={`${authInputClasses} ${!isEditing ? 'bg-stone-50/50 cursor-default border-transparent px-0' : ''} transition-all duration-300`}
+                                        className={`${authInputClasses} ${!isEditing ? 'bg-transparent cursor-default border-transparent px-0' : 'bg-white/50 focus:bg-white'} transition-all duration-300`}
                                     />
                                 </div>
 
@@ -213,24 +212,25 @@ export default function ProfilePage() {
                                     <input
                                         name="email"
                                         type="email"
-                                        defaultValue={session.user?.email || ""}
+                                        key={`email-${userEmail}`}
+                                        defaultValue={userEmail}
                                         readOnly={!isEditing}
-                                        className={`${authInputClasses} ${!isEditing ? 'bg-stone-50/50 cursor-default border-transparent px-0' : ''} transition-all duration-300`}
+                                        className={`${authInputClasses} ${!isEditing ? 'bg-transparent cursor-default border-transparent px-0' : 'bg-white/50 focus:bg-white'} transition-all duration-300`}
                                     />
                                 </div>
 
                                 {isEditing && (
-                                    <div className="pt-4 border-t border-stone-100 mt-4 animate-scale-in">
+                                    <div className="pt-4 border-t border-stone-100/50 mt-4 animate-scale-in">
                                         <label className="text-[10px] uppercase tracking-[0.2em] text-stone-400 block mb-3 font-bold">Update Key (Password)</label>
                                         <input
                                             name="password"
                                             type="password"
                                             placeholder="Leave blank to keep unchanged"
-                                            className={authInputClasses}
+                                            className={`${authInputClasses} bg-white/50 focus:bg-white`}
                                             minLength={6}
                                         />
-                                        <p className="text-[10px] text-stone-400 mt-3 italic">
-                                            Signed in via Google? You don't have a local password yet, but you can set one here to allow standard login.
+                                        <p className="text-[10px] text-stone-400 mt-3 italic leading-relaxed">
+                                            Keep this blank unless you wish to revise your authorization credentials.
                                         </p>
                                     </div>
                                 )}
@@ -244,17 +244,17 @@ export default function ProfilePage() {
                         </form>
 
                         {!isEditing && (
-                            <div className="pt-24 border-t border-stone-100">
-                                <div className="p-8 glass-premium rounded-sm">
+                            <div className="pt-20 border-t border-stone-100/50">
+                                <div className="p-8 glass rounded-2xl border-stone-100">
                                     <h2 className="text-xs uppercase tracking-widest text-red-500 mb-2 font-bold flex items-center gap-2">
                                         <ShieldAlert size={14} /> Danger Zone
                                     </h2>
                                     <p className="text-xs text-stone-500 mb-6 leading-relaxed">
-                                        Permanent erasure of your identity and purchase history. This process is irreversible.
+                                        Permanent erasure of your identity and purchase history. This process is irreversible and all digital assets will be lost.
                                     </p>
                                     <button
                                         onClick={handleDeleteAccount}
-                                        className="text-[10px] uppercase tracking-[0.2em] font-bold text-red-500 border border-red-200 px-6 py-3 hover:bg-red-500 hover:text-white transition-all w-full md:w-auto"
+                                        className="text-[10px] uppercase tracking-[0.2em] font-bold text-red-500 border border-red-200 px-6 py-3 hover:bg-red-500 hover:text-white transition-all w-full rounded-lg"
                                     >
                                         Delete Account Permanently
                                     </button>
@@ -262,9 +262,9 @@ export default function ProfilePage() {
                             </div>
                         )}
                     </div>
-                </>
+                </div>
             ) : (
-                <div className="animate-fade-in-up glass-premium p-8 md:p-12 rounded-2xl shadow-2xl">
+                <div className="animate-fade-in glass-premium p-8 md:p-12 rounded-3xl shadow-xl">
                     <button
                         onClick={() => setShowVerify(false)}
                         className="flex items-center gap-2 text-xs uppercase tracking-widest text-stone-400 hover:text-stone-900 transition-colors mb-12"
@@ -273,23 +273,22 @@ export default function ProfilePage() {
                     </button>
 
                     <div className="text-center">
-                        <div className="inline-flex items-center justify-center w-16 h-16 bg-stone-100/50 backdrop-blur-sm text-stone-900 rounded-full mb-8">
-                            <Mail size={28} />
+                        <div className="inline-flex items-center justify-center w-16 h-16 bg-stone-900 text-stone-50 rounded-full mb-8 shadow-lg shadow-stone-200">
+                            <Mail size={24} />
                         </div>
-                        <h2 className="text-2xl font-serif text-stone-900 mb-2">Verify New Email</h2>
+                        <h2 className="text-2xl font-serif text-stone-900 mb-2">Verify email update</h2>
                         <p className="text-stone-500 text-sm mb-10 leading-relaxed font-light">
-                            We've sent a code to <span className="font-semibold text-stone-900">{tempEmail}</span>.
-                            Please verify ownership to complete the update.
+                            Confirm ownership of <span className="font-semibold text-stone-900 underline underline-offset-4">{tempEmail}</span> by entering the code provided via dispatch.
                         </p>
 
-                        <form onSubmit={handleVerifyEmail} className="space-y-8">
+                        <form onSubmit={handleVerifyEmail} className="space-y-10">
                             {error && (
-                                <div className="p-4 bg-red-50/80 backdrop-blur-sm text-red-800 text-xs uppercase tracking-widest border border-red-100 animate-scale-in">
+                                <div className="p-4 bg-red-50 text-red-800 text-xs uppercase tracking-widest border border-red-100 animate-scale-in rounded-lg">
                                     <ShieldAlert size={14} className="inline mr-2" /> {error}
                                 </div>
                             )}
 
-                            <div className="flex justify-between gap-2 max-w-xs mx-auto">
+                            <div className="flex justify-center gap-3">
                                 {verifyCode.map((digit, index) => (
                                     <input
                                         key={index}
@@ -299,7 +298,7 @@ export default function ProfilePage() {
                                         maxLength={1}
                                         value={digit}
                                         onChange={(e) => handleVerifyCodeChange(index, e.target.value)}
-                                        className="w-10 h-14 text-center text-2xl font-serif border-b-2 border-stone-200 focus:border-stone-900 focus:outline-none transition-all bg-transparent"
+                                        className="w-10 h-14 md:w-12 md:h-16 text-center text-2xl font-serif border-b-2 border-stone-200 focus:border-stone-900 focus:outline-none transition-all bg-transparent"
                                         required
                                     />
                                 ))}
@@ -308,7 +307,7 @@ export default function ProfilePage() {
                             <button
                                 type="submit"
                                 disabled={verifying}
-                                className={authButtonClasses}
+                                className={`${authButtonClasses} shadow-lg shadow-stone-200`}
                             >
                                 {verifying ? <Loader2 className="animate-spin inline mr-2" size={16} /> : null}
                                 Verify & Update
@@ -316,14 +315,14 @@ export default function ProfilePage() {
                         </form>
 
                         <div className="mt-12 pt-8 border-t border-stone-100/50">
-                            <p className="text-xs text-stone-400 mb-4 uppercase tracking-widest">Didn't receive code?</p>
+                            <p className="text-[10px] text-stone-400 mb-4 uppercase tracking-[0.2em] font-bold">Unreceived transmission?</p>
                             <button
                                 onClick={handleResendCode}
                                 disabled={resending}
-                                className="text-xs font-bold uppercase tracking-widest text-stone-900 hover:underline inline-flex items-center gap-2 disabled:opacity-50"
+                                className="text-xs font-bold uppercase tracking-widest text-stone-900 hover:text-stone-500 transition-colors inline-flex items-center gap-2 disabled:opacity-50"
                             >
                                 {resending ? <RefreshCw size={12} className="animate-spin" /> : null}
-                                Resend Verification
+                                Resend verification code
                             </button>
                         </div>
                     </div>
@@ -332,4 +331,3 @@ export default function ProfilePage() {
         </section>
     );
 }
-

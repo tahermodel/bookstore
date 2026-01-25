@@ -36,6 +36,12 @@ export async function POST(request: Request) {
             },
         });
 
+        // Delete all linked accounts (OAuth) to force a fresh link with new identity
+        // This solves the "multiple login methods with old email" issue
+        await prisma.account.deleteMany({
+            where: { userId: session.user.id }
+        });
+
         // Delete the token
         await prisma.verificationToken.delete({
             where: { email },

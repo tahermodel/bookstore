@@ -1,80 +1,84 @@
-# Objects of Permanence
+# Editorial | Curated Book Store
 
-A curated, editorial-style e-commerce experience for premium books and digital artifacts. Built with **Next.js 15**, **Tailwind CSS**, and **Stripe**.
+A premium e-commerce experience for curated books and digital artifacts. Built with **Next.js 15**, **Prisma 7**, **Auth.js v5**, and **Stripe**.
 
 ![Next.js](https://img.shields.io/badge/Next.js-15-black?style=for-the-badge&logo=next.js&logoColor=white)
 ![TypeScript](https://img.shields.io/badge/TypeScript-5-blue?style=for-the-badge&logo=typescript&logoColor=white)
-![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)
+![Prisma](https://img.shields.io/badge/Prisma-7-2D3748?style=for-the-badge&logo=prisma&logoColor=white)
+![Supabase](https://img.shields.io/badge/Supabase-Database-3ECF8E?style=for-the-badge&logo=supabase&logoColor=white)
 ![Stripe](https://img.shields.io/badge/Stripe-Payment-635BFF?style=for-the-badge&logo=stripe&logoColor=white)
-
-## 📖 Overview
-
-**Objects of Permanence** is designed as an antidote to the ephemeral nature of the modern web. It is a high-performance, minimal storefront that treats products as cultural artifacts.
-
-The design prioritizes:
-- **Typography**: Editorial-grade type handling using standard fonts.
-- **Speed**: Instant page loads and smooth transitions.
-- **Simplicity**: A distraction-free shopping experience.
 
 ## ✨ Features
 
-- **Next.js App Router**: Utilizing the latest React Server Components for optimal performance.
-- **Editorial Layout**: A unique, grid-based design system inspired by print media.
-- **Stripe Checkout**: Secure and seamless payment processing.
-- **Responsive Design**: Flawless experience across mobile, tablet, and desktop.
-- **Type-Safe**: Fully typed with TypeScript for robust development.
+- **Modern Tech Stack**: Next.js 15 App Router with Turbopack.
+- **Glassmorphism UI**: Premium "snowed glass" aesthetic across the header and profile sections.
+- **Full Auth System**: Secure authentication via Auth.js v5 (formerly NextAuth) using Google OAuth and Email/Password.
+- **Verified Email Updates**: Users can update their email addresses with a secure verification code flow.
+- **Stripe Integration**: Complete checkout flow for digital/physical products.
+- **Robust Database**: Powered by Prisma 7 and Supabase with optimized connection handling for Vercel.
+- **Nodemailer Integration**: Reliable transactional emails using Gmail SMTP.
 
 ## 🛠️ Tech Stack
 
 - **Framework**: [Next.js](https://nextjs.org/) (v15)
-- **Language**: TypeScript
-- **Styling**: Tailwind CSS & PostCSS
-- **Icons**: Lucide React
-- **Payments**: Stripe Node.js SDK
+- **Database**: [Supabase](https://supabase.com/) with [Prisma ORM](https://www.prisma.io/)
+- **Authentication**: [Auth.js v5](https://authjs.dev/)
+- **Payments**: [Stripe](https://stripe.com/)
+- **Email**: [Nodemailer](https://nodemailer.com/) (Gmail SMTP)
+- **Styling**: Tailwind CSS 4 & Lucide Icons
 
 ## 🚀 Getting Started
 
-### Prerequisites
+### 1. Clone the repository
+```bash
+git clone https://github.com/tahermodel/bookstore.git
+cd bookstore
+```
 
-Ensure you have the following installed:
-- Node.js 18+ 
-- npm / yarn / pnpm
+### 2. Install dependencies
+```bash
+npm install
+```
 
-### Installation
+### 3. Environment Setup
+Create a `.env` file in the root directory and add the following:
 
-1. **Clone the repository**
-   ```bash
-   git clone https://github.com/yourusername/book-store.git
-   cd book-store
-   ```
+```env
+# Stripe
+STRIPE_SECRET_KEY=sk_test_...
+NEXT_PUBLIC_URL=http://localhost:3000
 
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
+# Database (Supabase)
+POSTGRES_PRISMA_URL="postgres://..."
+POSTGRES_URL_NON_POOLING="postgres://..."
 
-3. **Configure Environment Variables**
-   Create a `.env.local` file in the root directory and add your Stripe credentials:
-   ```env
-   NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_...
-   STRIPE_SECRET_KEY=sk_test_...
-   ```
+# Auth
+AUTH_SECRET="..."
+AUTH_GOOGLE_ID="..."
+AUTH_GOOGLE_SECRET="..."
 
-4. **Run the development server**
-   ```bash
-   npm run dev
-   ```
+# Email (Gmail SMTP)
+GMAIL_USER="your-email@gmail.com"
+GMAIL_APP_PASSWORD="your-16-character-app-password"
+```
 
-   Open [http://localhost:3000](http://localhost:3000) to view the application.
+### 4. Database Sync
+```bash
+npx prisma db push
+```
+
+### 5. Run Development Server
+```bash
+npm run dev
+```
 
 ## 📦 Deployment
 
-The easiest way to deploy this Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme).
+This project is optimized for deployment on **Vercel**. 
 
-1. Push your code to a GitHub repository.
-2. Import the project into Vercel.
-3. Add your Environment Variables (`NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY`, `STRIPE_SECRET_KEY`) in the Vercel dashboard.
-4. Deploy!
+1. **Prisma Generation**: The project includes a `postinstall` script to ensure Prisma Client is generated correctly in CI/CD environments.
+2. **SSL Configuration**: Database connections are pre-configured to handle Supabase certificate chains on serverless platforms.
+3. **Authorized Redirects**: Ensure you add your production URL (e.g., `https://your-app.vercel.app/api/auth/callback/google`) to your Google Cloud Console credentials.
 
 ## 📄 License
 
