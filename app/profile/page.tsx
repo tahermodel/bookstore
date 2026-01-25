@@ -83,6 +83,7 @@ export default function ProfilePage() {
             const result = await res.json();
             if (!res.ok) throw new Error(result.error || "Verification failed");
 
+            // Explicitly update session with new email
             await update({
                 ...session,
                 user: {
@@ -91,9 +92,12 @@ export default function ProfilePage() {
                 }
             });
 
-            setMessage("Email updated and verified successfully.");
-            setShowVerify(false);
-            setVerifyCode(['', '', '', '', '', '']);
+            // Force a slight delay to ensure session propagates
+            setTimeout(() => {
+                setMessage("Email updated and verified successfully.");
+                setShowVerify(false);
+                setVerifyCode(['', '', '', '', '', '']);
+            }, 100);
         } catch (err: any) {
             setError(err.message || "Incorrect verification code.");
         } finally {
@@ -150,7 +154,7 @@ export default function ProfilePage() {
         <section className="min-h-screen px-6 py-24 max-w-xl mx-auto">
             {!showVerify ? (
                 <>
-                    <div className="flex justify-between items-end mb-12">
+                    <div className="flex justify-between items-end mb-12 animate-fade-in">
                         <div>
                             <h1 className="text-3xl font-serif text-stone-900 mb-2">Account Details</h1>
                             <p className="text-stone-500 font-serif italic text-sm">Review or modify your records.</p>
@@ -175,11 +179,15 @@ export default function ProfilePage() {
                         )}
                     </div>
 
-                    <div className="space-y-12">
-                        <form onSubmit={handleUpdate} className="flex flex-col gap-8">
+                    <div className="space-y-12 animate-fade-in-up">
+                        <form
+                            key={session.user?.email || 'form'}
+                            onSubmit={handleUpdate}
+                            className="flex flex-col gap-8"
+                        >
                             {message && (
-                                <div className="p-4 bg-stone-900 text-stone-50 text-xs uppercase tracking-widest flex items-center gap-3 animate-slide-up">
-                                    <Check size={14} /> {message}
+                                <div className="p-4 glass shadow-sm text-stone-900 text-xs uppercase tracking-widest flex items-center gap-3 animate-slide-up">
+                                    <Check size={14} className="text-green-600" /> {message}
                                 </div>
                             )}
                             {error && (
@@ -196,7 +204,7 @@ export default function ProfilePage() {
                                         type="text"
                                         defaultValue={session.user?.name || ""}
                                         readOnly={!isEditing}
-                                        className={`${authInputClasses} ${!isEditing ? 'bg-stone-50/50 cursor-default border-transparent px-0' : ''}`}
+                                        className={`${authInputClasses} ${!isEditing ? 'bg-stone-50/50 cursor-default border-transparent px-0' : ''} transition-all duration-300`}
                                     />
                                 </div>
 
@@ -207,12 +215,12 @@ export default function ProfilePage() {
                                         type="email"
                                         defaultValue={session.user?.email || ""}
                                         readOnly={!isEditing}
-                                        className={`${authInputClasses} ${!isEditing ? 'bg-stone-50/50 cursor-default border-transparent px-0' : ''}`}
+                                        className={`${authInputClasses} ${!isEditing ? 'bg-stone-50/50 cursor-default border-transparent px-0' : ''} transition-all duration-300`}
                                     />
                                 </div>
 
                                 {isEditing && (
-                                    <div className="pt-4 border-t border-stone-100 mt-4">
+                                    <div className="pt-4 border-t border-stone-100 mt-4 animate-scale-in">
                                         <label className="text-[10px] uppercase tracking-[0.2em] text-stone-400 block mb-3 font-bold">Update Key (Password)</label>
                                         <input
                                             name="password"
@@ -237,7 +245,7 @@ export default function ProfilePage() {
 
                         {!isEditing && (
                             <div className="pt-24 border-t border-stone-100">
-                                <div className="p-8 bg-stone-50 border border-stone-100 rounded-sm">
+                                <div className="p-8 glass-premium rounded-sm">
                                     <h2 className="text-xs uppercase tracking-widest text-red-500 mb-2 font-bold flex items-center gap-2">
                                         <ShieldAlert size={14} /> Danger Zone
                                     </h2>
@@ -256,7 +264,7 @@ export default function ProfilePage() {
                     </div>
                 </>
             ) : (
-                <div className="animate-fade-in-up">
+                <div className="animate-fade-in-up glass-premium p-8 md:p-12 rounded-2xl shadow-2xl">
                     <button
                         onClick={() => setShowVerify(false)}
                         className="flex items-center gap-2 text-xs uppercase tracking-widest text-stone-400 hover:text-stone-900 transition-colors mb-12"
@@ -265,7 +273,7 @@ export default function ProfilePage() {
                     </button>
 
                     <div className="text-center">
-                        <div className="inline-flex items-center justify-center w-16 h-16 bg-stone-100 text-stone-900 rounded-full mb-8">
+                        <div className="inline-flex items-center justify-center w-16 h-16 bg-stone-100/50 backdrop-blur-sm text-stone-900 rounded-full mb-8">
                             <Mail size={28} />
                         </div>
                         <h2 className="text-2xl font-serif text-stone-900 mb-2">Verify New Email</h2>
@@ -276,7 +284,7 @@ export default function ProfilePage() {
 
                         <form onSubmit={handleVerifyEmail} className="space-y-8">
                             {error && (
-                                <div className="p-4 bg-red-50 text-red-800 text-xs uppercase tracking-widest border border-red-100 animate-scale-in">
+                                <div className="p-4 bg-red-50/80 backdrop-blur-sm text-red-800 text-xs uppercase tracking-widest border border-red-100 animate-scale-in">
                                     <ShieldAlert size={14} className="inline mr-2" /> {error}
                                 </div>
                             )}
@@ -307,7 +315,7 @@ export default function ProfilePage() {
                             </button>
                         </form>
 
-                        <div className="mt-12 pt-8 border-t border-stone-100">
+                        <div className="mt-12 pt-8 border-t border-stone-100/50">
                             <p className="text-xs text-stone-400 mb-4 uppercase tracking-widest">Didn't receive code?</p>
                             <button
                                 onClick={handleResendCode}

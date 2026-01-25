@@ -76,7 +76,15 @@
     .stagger-5 { animation-delay: 0.5s; }
     
     .glass {
-        @apply backdrop-blur-md bg-white/80 border border-white/20;
+        @apply backdrop-blur-md bg-white/70 border border-white/20;
+    }
+
+    .glass-premium {
+        @apply backdrop-blur-xl bg-white/40 border border-white/30 shadow-[0_8px_32px_0_rgba(28,25,23,0.05)];
+    }
+
+    .glass-dark {
+        @apply backdrop-blur-xl bg-stone-900/40 border border-white/10 shadow-2xl;
     }
     
     .text-balance {
