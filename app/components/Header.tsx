@@ -25,9 +25,10 @@ export async function Header() {
                     <div className="flex items-center gap-4">
                         <Link
                             href="/profile"
-                            className="text-xs font-medium uppercase tracking-widest hover:text-stone-500 transition-colors hidden md:block truncate max-w-[120px]"
+                            className="text-xs font-medium uppercase tracking-widest hover:text-stone-500 transition-colors flex items-center gap-2 truncate max-w-[100px] md:max-w-[150px]"
                         >
-                            {session.user.name || session.user.email}
+                            <User size={14} className="md:hidden" />
+                            <span className="truncate">{session.user.name || session.user.email}</span>
                         </Link>
                         <SignOutButton />
                     </div>
