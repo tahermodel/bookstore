@@ -41,7 +41,7 @@ export async function Footer() {
                             <h3 className="text-xs uppercase tracking-widest text-stone-500 font-medium">Connect</h3>
                             <nav className="flex flex-col gap-3">
                                 <a
-                                    href="mailto:editorial@example.com"
+                                    href="ownworkZ23@gmail.com"
                                     className="text-stone-300 hover:text-white transition-colors flex items-center gap-2"
                                 >
                                     <Mail size={14} />
