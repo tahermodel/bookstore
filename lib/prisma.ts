@@ -15,7 +15,10 @@ function createPrismaClient() {
         throw new Error("Database connection string is missing. Check your environment variables.");
     }
 
-    const pool = new Pool({ connectionString });
+    const pool = new Pool({
+        connectionString,
+        ssl: { rejectUnauthorized: false }
+    });
     const adapter = new PrismaPg(pool);
 
     return new PrismaClient({
