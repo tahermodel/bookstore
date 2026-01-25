@@ -1,13 +1,11 @@
 import { PrismaClient } from "@prisma/client";
-import { PrismaPg } from "@prisma/adapter-pg";
-import { Pool } from "pg";
 
 const globalForPrisma = globalThis as unknown as { prisma: PrismaClient | undefined };
 
 function createPrismaClient() {
-    // Priority 1: Use the non-pooling URL for maximum reliability during local dev and builds
-    // Priority 2: Fallback to the Prisma URL (pooling) for Vercel production optimization
-    const connectionString =
+    // Priority 1: Use the non-pooling URL for maximum reliability
+    // Priority 2: Fallback to the Prisma URL (pooling)
+    let connectionString =
         process.env.POSTGRES_URL_NON_POOLING ||
         process.env.POSTGRES_PRISMA_URL;
 
@@ -15,14 +13,14 @@ function createPrismaClient() {
         throw new Error("Database connection string is missing. Check your environment variables.");
     }
 
-    const pool = new Pool({
-        connectionString,
-        ssl: { rejectUnauthorized: false }
-    });
-    const adapter = new PrismaPg(pool);
+    // Force SSL settings for Supabase
+    if (connectionString.includes("supabase.com") && !connectionString.includes("sslmode=")) {
+        const separator = connectionString.includes("?") ? "&" : "?";
+        connectionString += `${separator}sslmode=require`;
+    }
 
     return new PrismaClient({
-        adapter,
+        datasourceUrl: connectionString,
         log: process.env.NODE_ENV === "development" ? ["error", "warn"] : ["error"],
     });
 }
