@@ -62,7 +62,7 @@ export default function AboutPage() {
                     <h2 className="text-xs font-bold uppercase tracking-widest text-stone-400 mb-8">Policies</h2>
                     <div className="text-sm text-stone-600 space-y-3">
                         <p><strong className="text-stone-900">Returns:</strong> All sales are final unless damaged in transit.</p>
-                        <p><strong className="text-stone-900">Contact:</strong> editorial@example.com</p>
+                        <p><strong className="text-stone-900">Contact:</strong> ownworkZ23@gmail.com</p>
                     </div>
 
                     <Link href="/" className="btn-primary inline-flex items-center gap-3 mt-12 group">
