@@ -153,7 +153,7 @@ export default function ProfilePage() {
     );
 
     return (
-        <section className="min-h-screen px-6 py-24 max-w-xl mx-auto">
+        <section className="min-h-screen px-6 py-24 max-w-xl mx-auto bg-stone-50/50">
             {!showVerify ? (
                 <div className="snowed-panel p-8 md:p-12 rounded-3xl animate-fade-in shadow-xl">
                     <div className="flex justify-between items-end mb-12">
