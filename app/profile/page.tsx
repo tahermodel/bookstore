@@ -155,7 +155,7 @@ export default function ProfilePage() {
     return (
         <section className="min-h-screen px-6 py-24 max-w-xl mx-auto">
             {!showVerify ? (
-                <div className="glass-premium p-8 md:p-12 rounded-3xl animate-fade-in shadow-xl">
+                <div className="snowed-panel p-8 md:p-12 rounded-3xl animate-fade-in shadow-xl">
                     <div className="flex justify-between items-end mb-12">
                         <div>
                             <h1 className="text-3xl font-serif text-stone-900 mb-2">Account Details</h1>
@@ -184,12 +184,12 @@ export default function ProfilePage() {
                     <div className="space-y-12">
                         <form onSubmit={handleUpdate} className="flex flex-col gap-8">
                             {message && (
-                                <div className="p-4 glass text-stone-900 text-xs uppercase tracking-widest flex items-center gap-3 animate-slide-up border-green-100">
+                                <div className="p-4 bg-stone-50 text-stone-900 text-xs uppercase tracking-widest flex items-center gap-3 animate-slide-up border border-green-100">
                                     <Check size={14} className="text-green-600" /> {message}
                                 </div>
                             )}
                             {error && (
-                                <div className="p-4 bg-red-50/50 backdrop-blur-sm text-red-800 text-xs uppercase tracking-widest border border-red-100 flex items-center gap-3">
+                                <div className="p-4 bg-red-50 text-red-800 text-xs uppercase tracking-widest border border-red-100 flex items-center gap-3">
                                     <ShieldAlert size={14} /> {error}
                                 </div>
                             )}
@@ -203,7 +203,7 @@ export default function ProfilePage() {
                                         key={`name-${userName}`}
                                         defaultValue={userName}
                                         readOnly={!isEditing}
-                                        className={`${authInputClasses} ${!isEditing ? 'bg-transparent cursor-default border-transparent px-0' : 'bg-white/50 focus:bg-white'} transition-all duration-300`}
+                                        className={`${authInputClasses} ${!isEditing ? 'bg-transparent cursor-default border-transparent px-0' : 'bg-white focus:bg-stone-50'} transition-all duration-300`}
                                     />
                                 </div>
 
@@ -215,7 +215,7 @@ export default function ProfilePage() {
                                         key={`email-${userEmail}`}
                                         defaultValue={userEmail}
                                         readOnly={!isEditing}
-                                        className={`${authInputClasses} ${!isEditing ? 'bg-transparent cursor-default border-transparent px-0' : 'bg-white/50 focus:bg-white'} transition-all duration-300`}
+                                        className={`${authInputClasses} ${!isEditing ? 'bg-transparent cursor-default border-transparent px-0' : 'bg-white focus:bg-stone-50'} transition-all duration-300`}
                                     />
                                 </div>
 
@@ -226,7 +226,7 @@ export default function ProfilePage() {
                                             name="password"
                                             type="password"
                                             placeholder="Leave blank to keep unchanged"
-                                            className={`${authInputClasses} bg-white/50 focus:bg-white`}
+                                            className={`${authInputClasses} bg-white focus:bg-stone-50`}
                                             minLength={6}
                                         />
                                         <p className="text-[10px] text-stone-400 mt-3 italic leading-relaxed">
@@ -245,7 +245,7 @@ export default function ProfilePage() {
 
                         {!isEditing && (
                             <div className="pt-20 border-t border-stone-100/50">
-                                <div className="p-8 glass rounded-2xl border-stone-100">
+                                <div className="p-8 bg-stone-50/50 rounded-2xl border border-stone-100">
                                     <h2 className="text-xs uppercase tracking-widest text-red-500 mb-2 font-bold flex items-center gap-2">
                                         <ShieldAlert size={14} /> Danger Zone
                                     </h2>
@@ -264,7 +264,7 @@ export default function ProfilePage() {
                     </div>
                 </div>
             ) : (
-                <div className="animate-fade-in glass-premium p-8 md:p-12 rounded-3xl shadow-xl">
+                <div className="animate-fade-in snowed-panel p-8 md:p-12 rounded-3xl shadow-xl">
                     <button
                         onClick={() => setShowVerify(false)}
                         className="flex items-center gap-2 text-xs uppercase tracking-widest text-stone-400 hover:text-stone-900 transition-colors mb-12"
