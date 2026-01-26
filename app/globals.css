@@ -95,41 +95,27 @@
     }
 
     .glass-premium {
-        @apply backdrop-blur-xl bg-white/40 border border-white/30 shadow-[0_8px_32px_0_rgba(28, 25, 23, 0.05)];
+        @apply backdrop-blur-xl bg-white-glass border border-white/30 shadow-glass-premium;
     }
 
     .glass-dark {
-        @apply backdrop-blur-xl bg-stone-900/40 border border-white/10 shadow-2xl;
+        @apply backdrop-blur-xl bg-dark-glass border border-white/10 shadow-2xl;
     }
 
     .glass-frosted {
-        @apply backdrop-blur-xl bg-white/40 border border-white/30 shadow-[0_8px_32px_0_rgba(28, 25, 23, 0.05)];
+        @apply backdrop-blur-xl bg-white-glass border border-white/30 shadow-glass-premium;
     }
 
     .glass-card {
-        background-color: rgba(255, 255, 255, 0.55);
-        backdrop-filter: blur(20px) saturate(160%);
-        -webkit-backdrop-filter: blur(20px) saturate(160%);
-        border: 1px solid rgba(255, 255, 255, 0.7);
-        box-shadow:
-            0 25px 50px -12px rgba(28, 25, 23, 0.08),
-            inset 0 0 0 1px rgba(255, 255, 255, 0.4);
+        @apply backdrop-blur-xl bg-white-glass border border-white/30 shadow-glass-premium;
     }
 
     .glass-button {
-        background-color: rgba(255, 255, 255, 0.5);
-        backdrop-filter: blur(12px) saturate(180%);
-        -webkit-backdrop-filter: blur(12px) saturate(180%);
-        border: 1px solid rgba(255, 255, 255, 0.6);
-        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
-        transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        @apply backdrop-blur-md bg-white/50 border border-white/30 shadow-glass-button transition-all duration-300 ease-out;
     }
 
     .glass-button:hover {
-        background-color: rgba(255, 255, 255, 0.8);
-        transform: translateY(-2px);
-        box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.08);
-        border-color: rgba(255, 255, 255, 1);
+        @apply bg-white/70 -translate-y-0.5 shadow-glass-hover border-white/50;
     }
 
     /* Enhanced 'snowed' panel with micro-texture appearance */
