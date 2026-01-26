@@ -94,14 +94,16 @@ export function OrderList({ initialOrders }: { initialOrders: DBOrder[] }) {
                                 {isRefunded ? (
                                     <span className="text-[10px] bg-stone-100/50 text-stone-500 line-through px-3 py-1 rounded-full border border-stone-200/50">Refunded</span>
                                 ) : (
-                                    <span className="text-[10px] glass-frosted bg-green-50/50 text-green-700 font-bold px-3 py-1 rounded-full border border-green-200/50 shadow-sm">Confirmed</span>
+                                    <span className="text-[11px] glass-frosted bg-green-500/10 text-green-700 font-black tracking-[0.2em] px-6 py-2.5 rounded-xl border border-green-400/30 shadow-md saturate-[1.8] animate-pulse-subtle">
+                                        CONFIRMED
+                                    </span>
                                 )}
 
                                 {!isRefunded && (
                                     <button
                                         onClick={() => handleRefund(order.id)}
                                         disabled={isRefunding}
-                                        className="text-[10px] font-bold text-red-500 hover:text-red-700 uppercase tracking-widest transition-colors disabled:opacity-50 glass-button px-4 py-1.5 rounded-full"
+                                        className="ml-auto text-[9px] font-bold text-stone-400 hover:text-red-500 uppercase tracking-[0.2em] transition-colors disabled:opacity-50 underline decoration-stone-200 underline-offset-4"
                                     >
                                         {isRefunding ? "Processing..." : "Refund"}
                                     </button>
