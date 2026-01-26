@@ -60,6 +60,7 @@ export default function ProfilePage() {
                 setIsEditing(false);
             } else {
                 // If only name was changed
+                setUserName(updatedUser.name);
                 await update({
                     name: updatedUser.name
                 });
@@ -92,8 +93,10 @@ export default function ProfilePage() {
             if (!res.ok) throw new Error(result.error || "Verification failed");
 
             // CRITICAL: Force a full session update with the new email
+            setUserEmail(tempEmail);
             await update({
-                email: tempEmail
+                email: tempEmail,
+                name: result.name || session?.user?.name
             });
 
             setMessage("Email updated and verified successfully.");
