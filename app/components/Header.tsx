@@ -38,7 +38,7 @@ export async function Header() {
                         className="text-xs font-medium uppercase tracking-widest hover:text-stone-500 transition-colors flex items-center gap-2"
                     >
                         <User size={14} />
-                        <span className="hidden sm:inline">Sign In</span>
+                        <span className="">Sign In</span>
                     </Link>
                 )}
             </div>
