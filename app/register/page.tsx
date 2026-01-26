@@ -49,9 +49,9 @@ export default function RegisterPage() {
                     <p className="text-stone-500 font-light">Create your archive membership.</p>
                 </div>
 
-                <form onSubmit={handleSubmit} className="flex flex-col gap-5 bg-white p-8 rounded-xl shadow-xl shadow-stone-200/50 border border-stone-100">
+                <form onSubmit={handleSubmit} className="flex flex-col gap-5 glass-card p-8 rounded-3xl animate-fade-in shadow-xl backdrop-blur-xl">
                     {error && (
-                        <div className="text-red-600 text-sm bg-red-50 p-4 border border-red-200 rounded-lg text-center animate-scale-in">
+                        <div className="text-red-800 text-sm glass-frosted p-4 border border-red-200 rounded-xl text-center animate-scale-in">
                             {error}
                         </div>
                     )}
@@ -59,7 +59,7 @@ export default function RegisterPage() {
                     <button
                         type="button"
                         onClick={() => signIn("google", { callbackUrl: "/orders" })}
-                        className="btn-secondary flex items-center justify-center gap-3 rounded-lg w-full"
+                        className="btn-secondary flex items-center justify-center gap-3 rounded-xl w-full"
                     >
                         <svg className="w-5 h-5" viewBox="0 0 24 24">
                             <path
@@ -82,60 +82,60 @@ export default function RegisterPage() {
                         Sign up with Google
                     </button>
 
-                    <div className="relative">
+                    <div className="relative my-2">
                         <div className="absolute inset-0 flex items-center">
-                            <span className="w-full border-t border-stone-200"></span>
+                            <span className="w-full border-t border-stone-200/50"></span>
                         </div>
-                        <div className="relative flex justify-center text-xs uppercase">
-                            <span className="bg-white px-2 text-stone-500 tracking-widest">Or continue with email</span>
+                        <div className="relative flex justify-center text-[10px] uppercase tracking-[0.2em]">
+                            <span className="bg-transparent px-2 text-stone-400 font-bold backdrop-blur-sm">Dispatch via email</span>
                         </div>
                     </div>
 
                     <div>
-                        <label className="text-xs uppercase tracking-widest text-stone-500 mb-2 block">Full Name</label>
+                        <label className="text-[10px] uppercase tracking-widest text-stone-400 mb-2 block font-bold">Full Name</label>
                         <input
                             name="name"
                             type="text"
-                            placeholder="Your Name"
+                            placeholder="Identity"
                             required
-                            className="w-full border border-stone-200 rounded-lg py-3 px-4 text-stone-900 placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-stone-900 focus:border-transparent transition-all"
+                            className="w-full border-b border-stone-200 bg-white/30 backdrop-blur-sm rounded-lg py-3 px-4 text-stone-900 placeholder:text-stone-400 focus:outline-none focus:border-stone-900 transition-all font-serif"
                         />
                     </div>
                     <div>
-                        <label className="text-xs uppercase tracking-widest text-stone-500 mb-2 block">Email</label>
+                        <label className="text-[10px] uppercase tracking-widest text-stone-400 mb-2 block font-bold">Email</label>
                         <input
                             name="email"
                             type="email"
-                            placeholder="your@email.com"
+                            placeholder="Ensign"
                             required
-                            className="w-full border border-stone-200 rounded-lg py-3 px-4 text-stone-900 placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-stone-900 focus:border-transparent transition-all"
+                            className="w-full border-b border-stone-200 bg-white/30 backdrop-blur-sm rounded-lg py-3 px-4 text-stone-900 placeholder:text-stone-400 focus:outline-none focus:border-stone-900 transition-all font-serif"
                         />
                     </div>
                     <div>
-                        <label className="text-xs uppercase tracking-widest text-stone-500 mb-2 block">Password</label>
+                        <label className="text-[10px] uppercase tracking-widest text-stone-400 mb-2 block font-bold">Password</label>
                         <input
                             name="password"
                             type="password"
-                            placeholder="Minimum 6 characters"
+                            placeholder="Passcode"
                             required
                             minLength={6}
-                            className="w-full border border-stone-200 rounded-lg py-3 px-4 text-stone-900 placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-stone-900 focus:border-transparent transition-all"
+                            className="w-full border-b border-stone-200 bg-white/30 backdrop-blur-sm rounded-lg py-3 px-4 text-stone-900 placeholder:text-stone-400 focus:outline-none focus:border-stone-900 transition-all font-serif"
                         />
                     </div>
 
                     <button
                         type="submit"
                         disabled={loading}
-                        className="btn-primary flex items-center justify-center gap-3 mt-2 rounded-lg"
+                        className="btn-primary flex items-center justify-center gap-3 mt-4 rounded-xl shadow-lg border border-white/20"
                     >
                         {loading ? (
                             <>
                                 <Loader2 size={16} className="animate-spin" />
-                                Creating Account...
+                                Processing...
                             </>
                         ) : (
                             <>
-                                Create Account
+                                Initialize Access
                                 <ArrowRight size={16} />
                             </>
                         )}

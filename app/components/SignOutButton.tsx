@@ -11,7 +11,7 @@ export function SignOutButton() {
                     signOut({ callbackUrl: "/" });
                 }
             }}
-            className="text-xs font-medium uppercase tracking-widest hover:text-stone-500 transition-colors flex items-center gap-2"
+            className="text-xs font-medium uppercase tracking-widest hover:text-stone-500 transition-colors flex items-center gap-2 glass-button px-4 py-2 rounded-full"
         >
             <LogOut size={14} />
             <span className="hidden sm:inline">Sign Out</span>

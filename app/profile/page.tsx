@@ -155,7 +155,7 @@ export default function ProfilePage() {
     return (
         <section className="min-h-screen px-6 py-24 max-w-xl mx-auto bg-stone-50/50">
             {!showVerify ? (
-                <div className="snowed-panel p-8 md:p-12 rounded-3xl animate-fade-in shadow-xl">
+                <div className="glass-card p-8 md:p-12 rounded-3xl animate-fade-in shadow-xl backdrop-blur-xl">
                     <div className="flex justify-between items-end mb-12">
                         <div>
                             <h1 className="text-3xl font-serif text-stone-900 mb-2">Account Details</h1>
@@ -165,7 +165,7 @@ export default function ProfilePage() {
                         {!isEditing ? (
                             <button
                                 onClick={() => setIsEditing(true)}
-                                className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-stone-400 hover:text-stone-900 transition-colors"
+                                className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-stone-400 hover:text-stone-900 transition-colors glass-button px-4 py-2 rounded-full"
                             >
                                 <Pencil size={14} />
                                 Edit
@@ -173,7 +173,7 @@ export default function ProfilePage() {
                         ) : (
                             <button
                                 onClick={() => setIsEditing(false)}
-                                className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-red-400 hover:text-red-900 transition-colors"
+                                className="flex items-center gap-2 text-xs font-bold uppercase tracking-widest text-red-400 hover:text-red-900 transition-colors glass-button px-4 py-2 rounded-full"
                             >
                                 <X size={14} />
                                 Cancel
@@ -184,12 +184,12 @@ export default function ProfilePage() {
                     <div className="space-y-12">
                         <form onSubmit={handleUpdate} className="flex flex-col gap-8">
                             {message && (
-                                <div className="p-4 bg-stone-50 text-stone-900 text-xs uppercase tracking-widest flex items-center gap-3 animate-slide-up border border-green-100">
+                                <div className="p-4 glass-frosted text-stone-900 text-xs uppercase tracking-widest flex items-center gap-3 animate-slide-up rounded-xl">
                                     <Check size={14} className="text-green-600" /> {message}
                                 </div>
                             )}
                             {error && (
-                                <div className="p-4 bg-red-50 text-red-800 text-xs uppercase tracking-widest border border-red-100 flex items-center gap-3">
+                                <div className="p-4 bg-red-50/50 backdrop-blur-sm text-red-800 text-xs uppercase tracking-widest border border-red-100 flex items-center gap-3 rounded-xl">
                                     <ShieldAlert size={14} /> {error}
                                 </div>
                             )}
@@ -203,7 +203,7 @@ export default function ProfilePage() {
                                         key={`name-${userName}`}
                                         defaultValue={userName}
                                         readOnly={!isEditing}
-                                        className={`${authInputClasses} ${!isEditing ? 'bg-transparent cursor-default border-transparent px-0' : 'bg-white focus:bg-stone-50'} transition-all duration-300`}
+                                        className={`${authInputClasses} ${!isEditing ? 'bg-transparent cursor-default border-transparent px-0' : 'bg-white/40 focus:bg-white/60'} transition-all duration-300 rounded-lg px-2`}
                                     />
                                 </div>
 
@@ -215,7 +215,7 @@ export default function ProfilePage() {
                                         key={`email-${userEmail}`}
                                         defaultValue={userEmail}
                                         readOnly={!isEditing}
-                                        className={`${authInputClasses} ${!isEditing ? 'bg-transparent cursor-default border-transparent px-0' : 'bg-white focus:bg-stone-50'} transition-all duration-300`}
+                                        className={`${authInputClasses} ${!isEditing ? 'bg-transparent cursor-default border-transparent px-0' : 'bg-white/40 focus:bg-white/60'} transition-all duration-300 rounded-lg px-2`}
                                     />
                                 </div>
 
@@ -226,7 +226,7 @@ export default function ProfilePage() {
                                             name="password"
                                             type="password"
                                             placeholder="Leave blank to keep unchanged"
-                                            className={`${authInputClasses} bg-white focus:bg-stone-50`}
+                                            className={`${authInputClasses} bg-white/40 focus:bg-white/60 rounded-lg px-2`}
                                             minLength={6}
                                         />
                                         <p className="text-[10px] text-stone-400 mt-3 italic leading-relaxed">
@@ -237,7 +237,7 @@ export default function ProfilePage() {
                             </div>
 
                             {isEditing && (
-                                <button type="submit" disabled={loading} className={`${authButtonClasses} mt-4`}>
+                                <button type="submit" disabled={loading} className={`${authButtonClasses} mt-4 rounded-xl shadow-lg border border-white/20`}>
                                     {loading ? "Syncing..." : "Apply Changes"}
                                 </button>
                             )}
@@ -245,7 +245,7 @@ export default function ProfilePage() {
 
                         {!isEditing && (
                             <div className="pt-20 border-t border-stone-100/50">
-                                <div className="p-8 bg-stone-50/50 rounded-2xl border border-stone-100">
+                                <div className="p-8 glass-card rounded-2xl border-stone-100">
                                     <h2 className="text-xs uppercase tracking-widest text-red-500 mb-2 font-bold flex items-center gap-2">
                                         <ShieldAlert size={14} /> Danger Zone
                                     </h2>
@@ -254,7 +254,7 @@ export default function ProfilePage() {
                                     </p>
                                     <button
                                         onClick={handleDeleteAccount}
-                                        className="text-[10px] uppercase tracking-[0.2em] font-bold text-red-500 border border-red-200 px-6 py-3 hover:bg-red-500 hover:text-white transition-all w-full rounded-lg"
+                                        className="text-[10px] uppercase tracking-[0.2em] font-bold text-red-500 border border-red-200 px-6 py-3 hover:bg-red-500 hover:text-white transition-all w-full rounded-lg glass-button"
                                     >
                                         Delete Account Permanently
                                     </button>
@@ -264,10 +264,10 @@ export default function ProfilePage() {
                     </div>
                 </div>
             ) : (
-                <div className="animate-fade-in snowed-panel p-8 md:p-12 rounded-3xl shadow-xl">
+                <div className="animate-fade-in glass-card p-8 md:p-12 rounded-3xl shadow-xl">
                     <button
                         onClick={() => setShowVerify(false)}
-                        className="flex items-center gap-2 text-xs uppercase tracking-widest text-stone-400 hover:text-stone-900 transition-colors mb-12"
+                        className="flex items-center gap-2 text-xs uppercase tracking-widest text-stone-400 hover:text-stone-900 transition-colors mb-12 glass-button px-4 py-2 rounded-full"
                     >
                         <ArrowRight size={14} className="rotate-180" /> Back
                     </button>
@@ -283,7 +283,7 @@ export default function ProfilePage() {
 
                         <form onSubmit={handleVerifyEmail} className="space-y-10">
                             {error && (
-                                <div className="p-4 bg-red-50 text-red-800 text-xs uppercase tracking-widest border border-red-100 animate-scale-in rounded-lg">
+                                <div className="p-4 bg-red-50/60 backdrop-blur-md text-red-800 text-xs uppercase tracking-widest border border-red-100 animate-scale-in rounded-lg">
                                     <ShieldAlert size={14} className="inline mr-2" /> {error}
                                 </div>
                             )}
@@ -307,7 +307,7 @@ export default function ProfilePage() {
                             <button
                                 type="submit"
                                 disabled={verifying}
-                                className={`${authButtonClasses} shadow-lg shadow-stone-200`}
+                                className={`${authButtonClasses} shadow-lg rounded-xl border border-white/20`}
                             >
                                 {verifying ? <Loader2 className="animate-spin inline mr-2" size={16} /> : null}
                                 Verify & Update
@@ -319,7 +319,7 @@ export default function ProfilePage() {
                             <button
                                 onClick={handleResendCode}
                                 disabled={resending}
-                                className="text-xs font-bold uppercase tracking-widest text-stone-900 hover:text-stone-500 transition-colors inline-flex items-center gap-2 disabled:opacity-50"
+                                className="text-xs font-bold uppercase tracking-widest text-stone-900 hover:text-stone-500 transition-colors inline-flex items-center gap-2 disabled:opacity-50 glass-button px-6 py-3 rounded-full"
                             >
                                 {resending ? <RefreshCw size={12} className="animate-spin" /> : null}
                                 Resend verification code

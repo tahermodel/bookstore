@@ -7,7 +7,7 @@ export async function Header() {
     const session = await auth();
 
     return (
-        <nav className="flex justify-between items-center px-6 py-5 md:px-12 sticky top-0 glass-header z-50 transition-all duration-300">
+        <nav className="flex justify-between items-center px-6 py-5 md:px-12 sticky top-0 glass-frosted z-50 transition-all duration-300">
             <Link href="/" className="text-xs font-bold tracking-[0.25em] uppercase hover:text-stone-500 transition-colors">
                 Editorial
             </Link>

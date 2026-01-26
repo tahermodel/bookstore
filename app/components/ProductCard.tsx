@@ -12,7 +12,7 @@ export function ProductCard({ product, index }: ProductCardProps) {
     return (
         <Link
             href={`/product/${product.slug}`}
-            className="group bg-stone-50 p-8 md:p-12 cursor-pointer min-h-[60vh] flex flex-col justify-between hover:bg-white transition-all duration-500 relative overflow-hidden animate-fade-in-up"
+            className="group glass-card p-8 md:p-12 cursor-pointer min-h-[60vh] flex flex-col justify-between hover:scale-[1.01] transition-all duration-500 relative overflow-hidden animate-fade-in-up"
             style={{ animationDelay: `${index * 0.1}s` }}
         >
             { }

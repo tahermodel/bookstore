@@ -45,7 +45,7 @@ export function OrderList({ initialOrders }: { initialOrders: DBOrder[] }) {
 
     if (initialOrders.length === 0) {
         return (
-            <div className="bg-stone-50 p-12 text-center border border-stone-100">
+            <div className="glass-card p-12 text-center rounded-3xl animate-fade-in">
                 <p className="text-stone-500 mb-6 font-serif italic">
                     No verified records found.
                 </p>
@@ -57,7 +57,7 @@ export function OrderList({ initialOrders }: { initialOrders: DBOrder[] }) {
     }
 
     return (
-        <div className="flex flex-col gap-8">
+        <div className="flex flex-col gap-4 glass-card p-6 md:p-8 rounded-3xl animate-fade-in-up">
             {initialOrders.map((order) => {
                 const product = getProductById(order.productId);
                 if (!product) return null;
@@ -66,8 +66,8 @@ export function OrderList({ initialOrders }: { initialOrders: DBOrder[] }) {
                 const isRefunded = order.status === "refunded";
 
                 return (
-                    <div key={order.id} className={`flex gap-6 items-start py-6 border-b border-stone-100 last:border-0 hover:bg-stone-50 transition-colors p-4 -mx-4 rounded ${isRefunded ? 'opacity-50 grayscale' : ''}`}>
-                        <Link href={`/product/${product.slug}`} className="w-20 h-24 bg-stone-100 relative shrink-0 hover:opacity-80 transition-opacity overflow-hidden rounded-sm block">
+                    <div key={order.id} className={`flex gap-6 items-start py-6 border-b border-stone-100/50 last:border-0 hover:bg-white/30 transition-colors p-4 -mx-4 rounded-xl ${isRefunded ? 'opacity-50 grayscale' : ''}`}>
+                        <Link href={`/product/${product.slug}`} className="w-20 h-24 bg-stone-100 relative shrink-0 hover:opacity-80 transition-opacity overflow-hidden rounded-lg block shadow-sm">
                             {product.image && (
                                 <Image
                                     src={product.image}
@@ -101,7 +101,7 @@ export function OrderList({ initialOrders }: { initialOrders: DBOrder[] }) {
                                     <button
                                         onClick={() => handleRefund(order.id)}
                                         disabled={isRefunding}
-                                        className="ml-4 text-xs font-bold text-red-500 hover:text-red-700 uppercase tracking-widest transition-colors disabled:opacity-50"
+                                        className="ml-4 text-xs font-bold text-red-500 hover:text-red-700 uppercase tracking-widest transition-colors disabled:opacity-50 glass-button px-3 py-1 rounded-full"
                                     >
                                         {isRefunding ? "Processing..." : "Refund"}
                                     </button>

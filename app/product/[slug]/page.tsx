@@ -55,10 +55,10 @@ export default async function ProductPage({
                 </div>
 
                 {/* Details */}
-                <div className="md:sticky md:top-32 flex flex-col gap-8 animate-slide-in-right">
+                <div className="md:sticky md:top-32 flex flex-col gap-8 animate-slide-in-right glass-card p-8 md:p-12 rounded-3xl backdrop-blur-xl">
                     <Link
                         href="/"
-                        className="text-xs text-stone-400 hover:text-stone-900 transition-colors uppercase tracking-widest mb-4 flex items-center gap-2 group"
+                        className="text-xs text-stone-400 hover:text-stone-900 transition-colors uppercase tracking-widest mb-4 flex items-center gap-2 group glass-button w-fit px-4 py-2 rounded-full"
                     >
                         <ArrowLeft size={14} className="transition-transform group-hover:-translate-x-1" />
                         Back to Archive
@@ -76,7 +76,7 @@ export default async function ProductPage({
                     </div>
 
                     {/* Price & Purchase */}
-                    <div className="border-t border-stone-200 pt-8 mt-4">
+                    <div className="border-t border-stone-200/50 pt-8 mt-4">
                         <div className="flex justify-between items-center mb-6">
                             <span className="font-mono text-sm text-stone-500 uppercase tracking-widest">Price</span>
                             <span className="text-3xl font-serif text-stone-900">
@@ -88,7 +88,7 @@ export default async function ProductPage({
                             <input type="hidden" name="priceId" value={product.id} />
                             <button
                                 type="submit"
-                                className="btn-primary w-full flex justify-between items-center group"
+                                className="btn-primary w-full flex justify-between items-center group rounded-xl shadow-lg border border-white/20"
                             >
                                 <span>Purchase Now</span>
                                 <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
@@ -96,12 +96,12 @@ export default async function ProductPage({
                         </form>
 
                         {/* Trust badges */}
-                        <div className="flex items-center justify-center gap-6 mt-6 text-xs text-stone-400">
-                            <span className="flex items-center gap-2">
+                        <div className="flex items-center justify-center gap-6 mt-8 text-xs text-stone-400">
+                            <span className="flex items-center gap-2 glass-frosted px-3 py-1.5 rounded-full">
                                 <Shield size={14} />
                                 Secure checkout
                             </span>
-                            <span className="flex items-center gap-2">
+                            <span className="flex items-center gap-2 glass-frosted px-3 py-1.5 rounded-full">
                                 <Truck size={14} />
                                 Worldwide shipping
                             </span>
