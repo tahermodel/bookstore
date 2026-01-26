@@ -10,7 +10,7 @@ const config: Config = {
                 'glass-premium': '0 20px 50px -10px rgba(28, 25, 23, 0.1), 0 10px 20px -5px rgba(28, 25, 23, 0.04)',
                 'glass-button': '0 10px 15px -3px rgba(0, 0, 0, 0.05)',
                 'glass-hover': '0 30px 40px -10px rgba(0, 0, 0, 0.12)',
-                'glass-inset': 'inset 0 0 0 1.5px rgba(255, 255, 255, 0.6), inset 0 0 30px 0 rgba(255, 255, 255, 0.4)',
+                'glass-inset': 'inset 0 0 0 1px rgba(255, 255, 255, 0.6), inset 0 0 30px 0 rgba(255, 255, 255, 0.4)',
                 'glass-glow': 'inset 10px 10px 20px -10px rgba(255, 255, 255, 0.8)',
             },
             backgroundColor: {

@@ -125,7 +125,7 @@ function LoginForm() {
                     <button
                         type="submit"
                         disabled={loading}
-                        className="btn-primary flex items-center justify-center gap-3 mt-4 rounded-xl shadow-lg border border-white/20"
+                        className="btn-primary flex items-center justify-center gap-3 mt-4"
                     >
                         {loading ? (
                             <>

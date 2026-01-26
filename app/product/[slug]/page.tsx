@@ -88,7 +88,7 @@ export default async function ProductPage({
                             <input type="hidden" name="priceId" value={product.id} />
                             <button
                                 type="submit"
-                                className="btn-primary w-full flex justify-between items-center group rounded-xl shadow-lg border border-white/20"
+                                className="btn-primary w-full flex justify-between items-center group"
                             >
                                 <span>Purchase Now</span>
                                 <ArrowRight size={16} className="transition-transform group-hover:translate-x-1" />
