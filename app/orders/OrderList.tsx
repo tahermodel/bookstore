@@ -66,8 +66,8 @@ export function OrderList({ initialOrders }: { initialOrders: DBOrder[] }) {
                 const isRefunded = order.status === "refunded";
 
                 return (
-                    <div key={order.id} className={`flex gap-6 items-start py-6 border-b border-stone-100/50 last:border-0 hover:bg-white/30 transition-colors p-4 -mx-4 rounded-xl ${isRefunded ? 'opacity-50 grayscale' : ''}`}>
-                        <Link href={`/product/${product.slug}`} className="w-20 h-24 bg-stone-100 relative shrink-0 hover:opacity-80 transition-opacity overflow-hidden rounded-lg block shadow-sm">
+                    <div key={order.id} className={`flex flex-col sm:flex-row gap-6 items-start py-6 border-b border-stone-100/50 last:border-0 hover:bg-white/30 transition-colors p-4 rounded-xl ${isRefunded ? 'opacity-50 grayscale' : ''}`}>
+                        <Link href={`/product/${product.slug}`} className="w-20 h-24 bg-stone-100 relative shrink-0 hover:opacity-80 transition-opacity overflow-hidden rounded-lg block shadow-sm mx-auto sm:mx-0">
                             {product.image && (
                                 <Image
                                     src={product.image}
@@ -77,31 +77,31 @@ export function OrderList({ initialOrders }: { initialOrders: DBOrder[] }) {
                                 />
                             )}
                         </Link>
-                        <div className="flex-1">
-                            <div className="flex justify-between items-start mb-2">
+                        <div className="flex-1 w-full text-center sm:text-left">
+                            <div className="flex flex-col sm:flex-row justify-between items-center sm:items-start mb-2 gap-2">
                                 <h3 className="font-serif text-xl text-stone-900 leading-tight">
-                                    <Link href={`/product/${product.slug}`} className="hover:text-stone-600 transition-colors">
+                                    <Link href={`/product/${product.slug}`} className="hover:text-stone-600 transition-colors underline decoration-stone-200 decoration-1 underline-offset-4 sm:no-underline">
                                         {product.title}
                                     </Link>
                                 </h3>
-                                <span className="text-xs font-mono text-stone-400 shrink-0 ml-4">
+                                <span className="text-[10px] sm:text-xs font-mono text-stone-400 shrink-0">
                                     {new Date(order.createdAt).toLocaleDateString()}
                                 </span>
                             </div>
-                            <p className="text-sm text-stone-500 mb-4">{product.subtitle}</p>
-                            <div className="text-xs font-mono text-stone-400 uppercase tracking-widest flex gap-4 items-center">
-                                <span>PID: {order.productId.slice(-6)}</span>
+                            <p className="text-sm text-stone-500 mb-6 font-light truncate max-w-full italic">{product.subtitle}</p>
+                            <div className="text-[10px] sm:text-xs font-mono text-stone-400 uppercase tracking-widest flex flex-wrap justify-center sm:justify-start gap-4 items-center">
+                                <span className="bg-stone-50/50 px-2 py-1 rounded">PID: {order.productId.slice(-6)}</span>
                                 {isRefunded ? (
                                     <span className="text-stone-500 line-through">Refunded</span>
                                 ) : (
-                                    <span className="text-green-600">Confirmed</span>
+                                    <span className="text-green-600 font-bold">Confirmed</span>
                                 )}
 
                                 {!isRefunded && (
                                     <button
                                         onClick={() => handleRefund(order.id)}
                                         disabled={isRefunding}
-                                        className="ml-4 text-xs font-bold text-red-500 hover:text-red-700 uppercase tracking-widest transition-colors disabled:opacity-50 glass-button px-3 py-1 rounded-full"
+                                        className="text-[10px] font-bold text-red-500 hover:text-red-700 uppercase tracking-widest transition-colors disabled:opacity-50 glass-button px-4 py-1.5 rounded-full"
                                     >
                                         {isRefunding ? "Processing..." : "Refund"}
                                     </button>
