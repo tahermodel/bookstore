@@ -92,9 +92,9 @@ export function OrderList({ initialOrders }: { initialOrders: DBOrder[] }) {
                             <div className="text-[10px] sm:text-xs font-mono text-stone-400 uppercase tracking-widest flex flex-wrap justify-center sm:justify-start gap-4 items-center">
                                 <span className="bg-stone-50/50 px-2 py-1 rounded">PID: {order.productId.slice(-6)}</span>
                                 {isRefunded ? (
-                                    <span className="text-stone-500 line-through">Refunded</span>
+                                    <span className="text-[10px] bg-stone-100/50 text-stone-500 line-through px-3 py-1 rounded-full border border-stone-200/50">Refunded</span>
                                 ) : (
-                                    <span className="text-green-600 font-bold">Confirmed</span>
+                                    <span className="text-[10px] glass-frosted bg-green-50/50 text-green-700 font-bold px-3 py-1 rounded-full border border-green-200/50 shadow-sm">Confirmed</span>
                                 )}
 
                                 {!isRefunded && (

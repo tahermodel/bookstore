@@ -17,12 +17,26 @@
 }
 
 @layer components {
+    .glass-primary {
+        background-color: rgba(28, 25, 23, 0.85);
+        backdrop-filter: blur(20px) saturate(120%);
+        -webkit-backdrop-filter: blur(20px) saturate(120%);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        box-shadow:
+            0 20px 50px -10px rgba(28, 25, 23, 0.15),
+            inset 0 0 0 1px rgba(255, 255, 255, 0.1),
+            inset 0 0 20px 0 rgba(28, 25, 23, 0.3);
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+        background-repeat: repeat;
+        transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+    }
+
     .btn-primary {
-        @apply glass-button text-stone-900 border-stone-400 py-4 px-8 uppercase tracking-widest text-xs font-bold hover:bg-white/90 transition-all duration-500 ease-out rounded-full active:scale-[0.98];
+        @apply glass-primary text-stone-50 py-4 px-8 uppercase tracking-[0.25em] text-[10px] font-bold hover:bg-black hover:-translate-y-1 hover:shadow-2xl rounded-full active:scale-[0.98];
     }
 
     .btn-secondary {
-        @apply glass-button border-stone-200 text-stone-600 py-3 px-6 uppercase tracking-widest text-xs font-bold hover:border-stone-900 hover:text-stone-900 transition-all duration-300 ease-out rounded-full;
+        @apply glass-button border-stone-200 text-stone-600 py-3 px-6 uppercase tracking-[0.2em] text-[10px] font-bold hover:border-stone-900 hover:text-stone-900 transition-all duration-300 ease-out rounded-full;
     }
 
     .link-underline {
